@@ -1,0 +1,39 @@
+.admain{
+    height: 100vh;
+    background-image: url("https://i.redd.it/qnh4bu6cva901.jpg");
+    background-size: 100% 100%;
+}
+.log-car{
+    width: 450px;
+    height: 475px;
+    background: rgb(135,206,224);
+    background: linear-gradient(180deg, rgba(135,206,224,1) 22%, rgba(254,88,60,1) 41%, rgba(83,0,48,1) 56%, rgba(33,6,47,1) 71%);
+}
+
+.inp{
+    background: transparent;
+    width: 352px;
+    margin-top: 29px;
+    border: solid white 1px;
+    border-radius: 30px;
+    color: white;
+}
+.inp::placeholder{
+    color: white;
+    font-size: 20px;
+}
+.inp:focus{
+    color: white;
+}
+.inp.has-text{
+    color: white;
+}
+.btn-lo{
+    padding: 8px;
+    background-color: rgba(254, 88, 60, 1);
+    color: white;
+    border-radius: 30px;
+    border: 0px;
+    font-size: 22px;
+    font-weight: 800;
+}
