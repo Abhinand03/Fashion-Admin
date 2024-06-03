@@ -10,8 +10,8 @@ export const delteProduct=async(id)=>{
     return await commanApi("DELETE",`${base_url}/delete/${id}`,{},"")
 }
 
-export const allproduct=async()=>{
-    return await commanApi("GET",`${base_url}/all-product`,"","")
+export const allproduct=async(search)=>{
+    return await commanApi("GET",`${base_url}/all-product?search=${search}`,"","")
 
 }
 

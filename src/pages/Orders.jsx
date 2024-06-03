@@ -59,17 +59,27 @@ function Orders() {
             selector: row => row.paymentmode,
             sortable: true
 
+        },
+        {
+            name: "Status",
+            selector: row => row.sts,
+            sortable: true
+
         }
+
+
     ]
 
 
     const data = userdata.map(item => (
         {
             name: item.username,
-            email: item.email,
+        
             address: item.adress,
             phone: item.phone,
             paymentmode:item.paymentmode,
+            sts:<button className='btn btn-success'>Mark as delivered</button>,
+
             
 
 
@@ -120,7 +130,7 @@ function Orders() {
             <Header />
             
                 <div className=''>
-                    <h1 className='text-center mt-5 text-success'>USER DETAILS</h1>
+                    <h1 className='text-center mt-5 text-success'>ORDER DETAILS</h1>
 
                     <div className='mt-5'>
                         <DataTable columns={column} data={data} pagination customStyles={style} >
