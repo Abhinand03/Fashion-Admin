@@ -22,3 +22,7 @@ export const getuser=async()=>{
 export const getorder=async()=>{
     return await commanApi("GET",`${base_url}/all-order`,'','')
 }
+
+export const editproduct=async(data,header)=>{
+    return await commanApi("PUT",`${base_url}/pro-update`,data,header)
+}

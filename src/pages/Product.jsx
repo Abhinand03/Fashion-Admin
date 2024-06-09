@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import { allproduct, delteProduct } from '../services/Allapi';
 import base_url from '../services/Server_url';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
 import './pro.css'
@@ -75,7 +76,7 @@ function Product() {
                     ₹{item.price}
                   </Card.Text>
                   <div className='d-flex justify-content-evenly'>
-                    <Button variant="primary" onClick={handleShow}><i className="fa-solid fa-pen-to-square mx-2"></i>Edit</Button>
+                    <Link state={item} className='btn btn-primary' to={'/edit'}>Edit</Link>
                     <Button variant="danger" onClick={() => { handledelte(item._id) }}><i className="fa-solid fa-trash mx-2" ></i>Delete</Button>
 
                   </div>

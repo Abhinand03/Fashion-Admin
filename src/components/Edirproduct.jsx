@@ -1,88 +1,84 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Form } from 'react-bootstrap'
+import { useLocation, useNavigate } from 'react-router-dom'
+import Product from '../pages/Product'
+import base_url from '../services/Server_url'
+import { editproduct } from '../services/Allapi'
 import { toast } from 'react-toastify'
-import { addproduct } from '../services/Allapi'
-import Header from '../components/Header'
-import './pro.css'
+import Header from './Header'
 
-function Addproduct() {
-    const [reststus, setrestatus] = useState('')
-    const [chstatus, chsetstatus] = useState(false)
+
+function Edirproduct() {
+    const location=useLocation()
+    const product=location.state
+    const navigate=useNavigate()
+
     const [data, setdata] = useState({
-        brand: '', title: '', description: "", category: "", price: "", image: "", meterial:"",color:"",mrp:0
+        brand: product.brand, title:product.title, description: product.description, category: product.category, price: product.price, image: product.image, meterial:product.meterial,color:product.color,mrp:product.mrp,pid:product._id
     })
-    const [preview, setpreview] = useState([
+  
+const [preview, setpreview] = useState([
 
-    ])
-    const [status, setstatus] = useState(false)
-    useEffect(() => {
-        if (data.image.type == "image/jpg" || data.image.type == "image/jpeg" || data.image.type == "image/png") {
-            setstatus(false)
-            setpreview(URL.createObjectURL(data.image))
-        }
-        else {
-            setpreview('')
-            setstatus(true)
+])
+const [status, setstatus] = useState(false)
+useEffect(() => {
+    if (data.image.type == "image/jpg" || data.image.type == "image/jpeg" || data.image.type == "image/png") {
+        setstatus(false)
+        setpreview(URL.createObjectURL(data.image))
+    }
+    else {
+        setpreview('')
+        setstatus(true)
 
-        }
+    }
 
-    }, [data, chsetstatus])
+}, [data])
 
-    const handleupload = async () => {
-        console.log(data);
-        const { brand, title, description, category, price, image,meterial,mrp,color } = data
-        if (!brand || !title || !description || !category || !price || !image||!meterial||!mrp||!color) {
-            toast.warning("fill all the feilds")
-        }
-        else {
+const handleupdate=async()=>{
+    const {brand,title,description,category,price,image,meterial,mrp,color,pid}=data
+    console.log(data);
+    const formData=new FormData()
+    formData.append("brand",brand)
+    formData.append("title",title)
+    formData.append("description",description)
+    formData.append("category",category)
+    formData.append("price",price)
+    formData.append("image",image)
+    formData.append("meterial",meterial)
+    formData.append("mrp",mrp)
+    formData.append("pid",pid)
+    
+    formData.append("color",color)
+    const reqHeader = {
+        "Content-Type": "multipart/form-data"
+    }
+    console.log(formData);
+    const result= await editproduct(formData,reqHeader)
+    console.log(result);
+    if (result.status == 200) {
+        toast.success("Product Editted Successfully")
+        setdata({
+            brand: "", title: "", description: "", price: "", category: "", image: "",meterial:"",mrp:"",color:""
+        })
+        navigate('/product')
+        
+        // setrestatus(result)
+        // chsetstatus(!chsetstatus)
 
-            const formData = new FormData()
-            formData.append("brand", brand)
-            formData.append("title", title)
-            formData.append("description", description)
-            formData.append("category", category)
-            formData.append("price", price)
-            formData.append("meterial",meterial)
-            formData.append("mrp",mrp)
-            formData.append("color",color)
-            formData.append("image", image)
-            // formData.append("Eximage", image.name)
-            
-            const reqHeader = {
-                "Content-Type": "multipart/form-data"
-
-
-
-            }
-            console.log(formData);
-            const result = await addproduct(formData, reqHeader)
-            if (result.status == 200) {
-                toast.success("Product Added Successfully")
-                setdata({
-                    brand: "", title: "", description: "", price: "", category: "", image: "",meterial:"",mrp:"",color:""
-                })
-                setrestatus(result)
-                chsetstatus(!chsetstatus)
-
-
-
-            }
-            else {
-                toast.error(result.response.data)
-            }
-        }
 
 
     }
-    console.log(data);
+    else {
+        toast.error(result.response.data)
+    }
+}
 
-    return (
-        <>
-            <Header />
+  return (
+<div>
+    <Header/>
+    <h1 className='text-center mt-4'>Edit Product Details</h1>
 
-            <h1 className='text-center mt-3 text-warning'>Add Product</h1>
-
-            <div className='d-flex justify-content-center align-items-center w-100 mt-5 '  >
+<div className='d-flex justify-content-center align-items-center w-100 mt-5 '  >
                 <div className='border shadow p-4 w-50' style={{background:"gainsboro"}}>
                     <Form>
                         <div className='d-flex'>
@@ -142,17 +138,15 @@ function Addproduct() {
                         <p className='mt-2'>Image</p>
                         <label>
                             <input type="file" name="" onChange={(e) => { setdata({ ...data, image: e.target.files[0] }) }} style={{ display: 'none' }} />
-                            <img className='img-fluid' style={{ width: "12rem" }} src={preview ? preview : "https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"} alt="" />
+                            <img className='img-fluid' style={{ width: "12rem" }} src={preview ? preview : `${base_url}/uploads/${data.image}`} alt="" />
                         </label>
                     </Form>
-                    <button type='reset' onClick={handleupload} className='btnad btn btn-success mt-4'>Upload</button>
+                    <button type='reset' onClick={handleupdate} className='btnad btn btn-success mt-4'>Upload</button>
 
                 </div>
             </div>
-           
-        </>
-
-    )
+</div>
+  )
 }
 
-export default Addproduct
+export default Edirproduct

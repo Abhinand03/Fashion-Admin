@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import DataTable from 'react-data-table-component'
 import { getorder, getuser } from '../services/Allapi'
+import { Link } from 'react-router-dom'
 function Orders() {
     
     const [userdata, setuserdata] = useState([])
     const [status ,setstatus]=useState(false)
+    const [change,setchange]=useState("")
 
     useEffect(() => {
         handleuser()
@@ -26,6 +28,9 @@ function Orders() {
     }
 
     console.log(userdata);
+    const ch=()=>{
+        setchange("delivered")
+    }
 
     const column = [
         {
@@ -35,19 +40,13 @@ function Orders() {
 
 
         },
-        {
-            name: "Email",
-            selector: row => row.email,
-            sortable: true
+        // {
+        //     name: "Email",
+        //     selector: row => row.email,
+        //     sortable: true
 
-        },
-        {
-            name: "Addres",
-            selector: row => row.address,
-            sortable: true
-
-        }
-        ,
+        // },
+        
         {
             name: "Phone-NO",
             selector: row => row.phone,
@@ -65,20 +64,36 @@ function Orders() {
             selector: row => row.sts,
             sortable: true
 
-        }
+        },
+        
+        {
+            name: "Date Of Delivery",
+            selector: row => row.del,
+            sortable: true
 
+        },
+
+        {
+            name: "View",
+            selector: row => row.qty,
+            sortable: true
+
+        }
 
     ]
 
 
     const data = userdata.map(item => (
         {
-            name: item.username,
+            name: <h6 className='ms-1'>{item.username}</h6>,
         
-            address: item.adress,
-            phone: item.phone,
-            paymentmode:item.paymentmode,
-            sts:<button className='btn btn-success'>Mark as delivered</button>,
+            phone: <h6 className='ms-3'>{item.phone}</h6>,
+            paymentmode:<h6 className='ms-5'>{item.paymentmode}</h6>,
+            sts:<h6 className='bg-danger text-white p-2 rounded ms-4' >{item.dstatus}</h6>,
+            del: <h6 className='ms-5'>{item.deliverydate}</h6>,
+
+            qty: <Link to={'/detail'} state={item}><i class="fa-solid fa-file-pen ms-5"></i></Link> ,
+            
 
             
 
