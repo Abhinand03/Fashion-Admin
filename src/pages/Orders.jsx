@@ -89,10 +89,10 @@ function Orders() {
         
             phone: <h6 className='ms-3'>{item.phone}</h6>,
             paymentmode:<h6 className='ms-5'>{item.paymentmode}</h6>,
-            sts:<h6 className='bg-danger text-white p-2 rounded ms-4' >{item.dstatus}</h6>,
+            sts:item.dstatus=="Delivered"? <h6 className='bg-success text-white p-2 rounded ms-4' >{item.dstatus}</h6>:<h6 className='bg-danger text-white p-2 rounded ms-4' >{item.dstatus}</h6>,
             del: <h6 className='ms-5'>{item.deliverydate}</h6>,
 
-            qty: <Link to={'/detail'} state={item}><i class="fa-solid fa-file-pen ms-5"></i></Link> ,
+            qty: <Link to={'/detail'} state={item}><i class="fa-solid fa-file-pen ms-5 fa-xl text-dark"></i></Link> ,
             
 
             

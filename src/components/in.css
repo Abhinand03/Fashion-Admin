@@ -1,0 +1,48 @@
+
+.btton {
+    --color: #560bad;
+    font-family: inherit;
+    display: inline-block;
+    padding: 4px 2.7em;
+    line-height: 2.5em;
+    margin: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--color);
+    transition: color .5s;
+    z-index: 1;
+    font-size: 17px;
+    border-radius: 6px;
+    font-weight: 500;
+    color: var(--color);
+   }
+   
+   .btton:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+   }
+   
+   .btton:hover {
+    color: #fff;
+   }
+   
+   .btton:before {
+    top: 100%;
+    left: 100%;
+    transition: all .7s;
+   }
+   
+   .btton:hover:before {
+    top: -30px;
+    left: -30px;
+   }
+   
+   .btton:active:before {
+    background: #3a0ca3;
+    transition: background 0s;
+   }

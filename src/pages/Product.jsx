@@ -26,7 +26,7 @@ function Product() {
     const result = await delteProduct(id)
 
     if (result.status == 200) {
-      toast.success("Product Delete Success fully")
+      toast.success("Product Delete Successfully")
       setdelst(result)
     }
     else {

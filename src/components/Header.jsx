@@ -29,6 +29,10 @@ function Header() {
                   <ul className="navbar-nav  navbar-right justify-content-center ul1   flex-grow-1 pe-3">
                     <li className="nav-item me-3">
                       {/* <a className="nav-link na-cont" aria-current="page" href="#">PRODUCT</a> */}
+                      <Link className='n-link' to={'/dash'}>DASHBOARD</Link>
+                    </li>
+                    <li className="nav-item me-3">
+                      {/* <a className="nav-link na-cont" aria-current="page" href="#">PRODUCT</a> */}
                       <Link className='n-link' to={'/product'}>PRODUCT</Link>
                     </li>
                     <li className="nav-item me-3">
